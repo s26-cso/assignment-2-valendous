@@ -60,6 +60,7 @@ skipl:
     j finish  #for the laughs
 
 finish:
+    ld a0,24(sp)
     ld a1,16(sp)
     ld ra,8(sp)
     addi sp,sp,32     # now we revert all the changes made and then call it a day
@@ -72,8 +73,8 @@ get:
     sd a0,24(sp)
     sd a1,16(sp)
     sd ra,8(sp)
-    ld t0,0(a0)
     beq a0,x0,iszero       # if node ==NULL then return null
+    ld t0,0(a0)
     blt a1,t0,wentleft     # if out val(a1) is less than the node val then go left
     beq t0,a1,finshi       # if its equal then we found it and w can return
     ld a0,16(a0)           # gretwr than part  going right basically
@@ -88,7 +89,7 @@ wentleft:
     j finshi
 
 iszero:
-    ld a0,24(sp)
+    ld a0,24(sp)        # really useless but ok
     li a0,0             #to return NULL
 
 finshi:
@@ -97,31 +98,30 @@ finshi:
     addi sp,sp,32      #reverting out changes
     ret
 
-#int getAtMost(node*root,int val)
+#int getAtMost(int val,node* root)
 
 getAtMost:
     addi sp,sp,-32
-    sd a0,24(sp)
-    sd a1,16(sp)
+    sd a1,24(sp)
+    sd a0,16(sp)
     sd ra,8(sp)
     addi t1,x0,-1
 loop:
-    beq a0,x0,ginish
-    ld t2,0(a0)
-    beq a1,t2,found         # j impliment the c code striaght away 
-    blt a1,t2,goneleft
+    beq a1,x0,ginish
+    ld t2,0(a1)
+    beq a0,t2,found         # j impliment the c code striaght away 
+    blt a0,t2,goneleft
     addi t1,t2,0
-    ld a0,16(a0)            # check the c while loop code for refernece
+    ld a1,16(a1)            # check the c while loop code for refernece
     j loop
 goneleft:
-    ld a0,8(a0)
+    ld a1,8(a1)
     j loop
 found:
-    addi t1,a1,0
+    addi t1,a0,0
 
 ginish:
     addi a0,t1,0
-    ld a1,16(sp)
     ld ra,8(sp)
     addi sp,sp,32
     ret
