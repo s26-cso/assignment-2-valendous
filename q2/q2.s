@@ -8,6 +8,7 @@ res: .space 40000
 percnd: .string "%d"
 minusone: .string "-1"
 spas: .string " "
+nexline: .string "\n"
 
 .section .text
 .global main
@@ -130,6 +131,8 @@ addi s3,s3,1            # i++
 j printing
 
 wraps:
+la a0,nexline
+call printf
 addi a0,x0,0           #return 0; fire fire fire
 ld ra,0(sp)
 ld s0,8(sp)
