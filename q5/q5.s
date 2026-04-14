@@ -1,8 +1,8 @@
 .section .data
 filename: .string "input.txt"
 mode: .string "r" #since we only real 
-yes: .string "Yes"
-no: .string "No"
+yes: .string "Yes\n"
+no: .string "No\n"
 
 .section .text
 .global main
