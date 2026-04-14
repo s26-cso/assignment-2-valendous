@@ -32,9 +32,9 @@ insert:
     bne t2,x0,skip     #if !=NULL then go to make a node
     addi a0,a1,0       # if == NULL then make node (a0=val cuz the first parameter)
     call make_node
-    add x3,a0,x0
+    add t3,a0,x0
     ld a0,24(sp)
-    sd x3,16(a0)       #store the value the in val part of the new node and return
+    sd t3,16(a0)       #store the value the in val part of the new node and return
     j finish           #this is where any part of th efunc goes after its finished
 
 skip:
@@ -48,9 +48,9 @@ goleft:
     bne t4,x0,skipl
     addi a0,a1,0
     call make_node     # same thing we did for right but with left and we load form 8 instead of 16 
-    add x3,a0,x0
+    add t6,a0,x0
     ld a0,24(sp)
-    sd x3,8(a0)
+    sd t6,8(a0)
     j finish
 
 skipl:
